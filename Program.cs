@@ -23,7 +23,7 @@ namespace RC4Cipher
             byte[] c = new byte[p.Length];
 
             Console.WriteLine("Plain text: " + Encoding.ASCII.GetString(p));
-            Console.WriteLine("Plain text (Hex): " + Encoding.ASCII.GetString(p));
+            Console.WriteLine("Plain text (Hex): " + BitConverter.ToString(p));
             Console.WriteLine("Key: " + Encoding.ASCII.GetString(key));
 
             for (int i = 0; i < p.Length; i++)
@@ -58,8 +58,6 @@ namespace RC4Cipher
             }
 
             Console.ReadKey();
-
-            //END
         }
 
         static byte[] KSA(byte[] key)
@@ -91,12 +89,14 @@ namespace RC4Cipher
         {
             byte[] kStream = new byte[state.Length];
 
+            int i = 0;
             int j = 0;
 
             //Permuta para generar una mezcla pseudo-random en el arreglo
-            for(int i = 0; i < state.Length; i++)
+            for(int ind = 0; ind < state.Length; ind++)
             {
                 //Valor pseudo-random respecto al primer arreglo creado
+                i = (i + 1) % 256;
                 j = (j + state[i]) % 256;
 
                 //intercambio de posiciones entre 2 valores en el arreglo de forma pseudo-random
@@ -105,7 +105,7 @@ namespace RC4Cipher
                 state[j] = bS;
 
                 //Se genera el Key Stream
-                kStream[i] = state[(state[i] + state[j]) % 256];
+                kStream[ind] = state[(state[i] + state[j]) % 256];
             }
 
             return kStream;
