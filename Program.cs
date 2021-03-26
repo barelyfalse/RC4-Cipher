@@ -58,6 +58,8 @@ namespace RC4Cipher
             }
 
             Console.ReadKey();
+
+            //END
         }
 
         static byte[] KSA(byte[] key)
