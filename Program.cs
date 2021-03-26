@@ -82,6 +82,7 @@ namespace RC4Cipher
             }
 
             return s;
+
         }
 
         static byte[] PRGA(byte[] state)
